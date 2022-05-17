@@ -77,7 +77,7 @@ describe('SignUp Controller', () => {
     const httpRequest = {
       body: {
         name: 'any_name',
-        email: 'any_email@gmail.com',
+        email: 'any_email@mail.com',
         passwordConfirmation: 'any_passwordConfirmation'
       }
     }
@@ -91,7 +91,7 @@ describe('SignUp Controller', () => {
     const httpRequest = {
       body: {
         name: 'any_name',
-        email: 'any_email@gmail.com',
+        email: 'any_email@mail.com',
         password: 'any_password'
       }
     }
@@ -105,7 +105,7 @@ describe('SignUp Controller', () => {
     const httpRequest = {
       body: {
         name: 'any_name',
-        email: 'any_email@gmail.com',
+        email: 'any_email@mail.com',
         password: 'any_password',
         passwordConfirmation: 'invalid_password'
       }
@@ -121,7 +121,7 @@ describe('SignUp Controller', () => {
     const httpRequest = {
       body: {
         name: 'any_name',
-        email: 'invalid_email@gmail.com',
+        email: 'invalid_email@mail.com',
         password: 'any_password',
         passwordConfirmation: 'any_password'
       }
@@ -154,7 +154,7 @@ describe('SignUp Controller', () => {
     const httpRequest = {
       body: {
         name: 'any_name',
-        email: 'any_email@gmail.com',
+        email: 'any_email@mail.com',
         password: 'any_password',
         passwordConfirmation: 'any_password'
       }
@@ -172,7 +172,7 @@ describe('SignUp Controller', () => {
     const httpRequest = {
       body: {
         name: 'any_name',
-        email: 'any_email@gmail.com',
+        email: 'any_email@mail.com',
         password: 'any_password',
         passwordConfirmation: 'any_password'
       }
@@ -188,7 +188,7 @@ describe('SignUp Controller', () => {
     const httpRequest = {
       body: {
         name: 'any_name',
-        email: 'any_email@gmail.com',
+        email: 'any_email@mail.com',
         password: 'any_password',
         passwordConfirmation: 'any_password'
       }
@@ -196,8 +196,28 @@ describe('SignUp Controller', () => {
     sut.handle(httpRequest)
     expect(addSpy).toHaveBeenCalledWith({
       name: 'any_name',
-      email: 'any_email@gmail.com',
+      email: 'any_email@mail.com',
       password: 'any_password'
+    })
+  })
+
+  test('Should return 200 if invalid data is provided', () => {
+    const { sut } = makeSut()
+    const httpRequest = {
+      body: {
+        name: 'valid_name',
+        email: 'valid_email@mail.com',
+        password: 'valid_password',
+        passwordConfirmation: 'valid_password'
+      }
+    }
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(200)
+    expect(httpResponse.body).toEqual({
+      id: 'valid_id',
+      name: 'valid_name',
+      email: 'valid_email@mail.com',
+      password: 'valid_password'
     })
   })
 })
